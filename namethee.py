@@ -14,7 +14,7 @@ def binomial(list):
   lists = []
   for word in list:
     tmplist = []
-    tmplist.extend(word)
+    tmplist.append(word)
     url = 'http://thesaurus.altervista.org/thesaurus/v1?language=en_US&output=json&word='+word+'&key='+key
 
     f = urllib.request.urlopen(url)
@@ -24,9 +24,13 @@ def binomial(list):
       tmplist.extend(item['list']['synonyms'].split('|'))
 
     lists.append(tmplist)
+
   for l in lists[0]:
     for ll in lists[1]:
-      print(l.replace(' ','').replace('\'','').replace('(relatedterm)','')+ll.replace(' ','').replace('\'','').replace('(relatedterm)',''))
+      word1 = l.replace(' ','').replace('\'','').replace('(relatedterm)','').replace('(antonym)','')
+      word2 = ll.replace(' ','').replace('\'','').replace('(relatedterm)','').replace('(antonym)','')
+
+      print(word1+word2)
 
 words = sys.argv
 del words[0]
